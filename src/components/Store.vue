@@ -10,6 +10,8 @@
         <ManageStore v-model="store"></ManageStore>
       </div>
       <div class="sub-bloc">
+        <CatalogStore @addProductToBasketEvent="addProductToBasket($event)"></CatalogStore>
+        <BasketStore v-model="basket"></BasketStore>
       </div>
     </div>
   </div>
@@ -17,10 +19,14 @@
 
 <script>
 import ManageStore from "./ManageStore";
+import CatalogStore from "./CatalogStore";
+import BasketStore from "./BasketStore";
 
 export default {
   name: 'Store',
   components: {
+    BasketStore,
+    CatalogStore,
     ManageStore
   },
   data() {
@@ -28,12 +34,18 @@ export default {
       store: {
         name: 'Fred',
         isOpen: false
-      }
+      },
+      basket: []
     }
   },
   computed: {
     fullName() {
       return `Magasin de ${this.store.name}`;
+    }
+  },
+  methods: {
+    addProductToBasket(product) {
+      this.basket.push(product);
     }
   }
 }
